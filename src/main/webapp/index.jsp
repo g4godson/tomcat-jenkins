@@ -7,7 +7,7 @@
   <li>Deep</li>
   <li>Satwik</li>
   <li>Swathi</li>
-  <h1>Deplyed</h1>
+  <h1>Deployed</h1>
 </ul>
 </body>
 </html>
