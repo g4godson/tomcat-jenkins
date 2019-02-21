@@ -30,7 +30,7 @@ pipeline {
                // sh  'mvn clean package'
             }
 
-
+        }
 
         // stage ('Deploy Build in Staging Area'){
         //     steps{
