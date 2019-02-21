@@ -1,10 +1,11 @@
 pipeline {
     agent any
     stages {
-        stage ('Build Servlet Project') {
+        stage ('Compile Stage') {
             steps {
                 /*For windows machine */
-               bat  'mvn clean package'
+                withMaven(maven : 'maven')
+                bat  'mvn clean package'
 
                 /*For Mac & Linux machine */
                // sh  'mvn clean package'
@@ -19,20 +20,32 @@ pipeline {
             }
         }
 
-        stage ('Deploy Build in Staging Area'){
-            steps{
+        stage ('Testing Stage') {
+            steps {
+                /*For windows machine */
+                withMaven(maven : 'maven')
+                bat  'mvn test'
 
-                build job : 'Deploy-StagingArea-Piple'
-
+                /*For Mac & Linux machine */
+               // sh  'mvn clean package'
             }
-        }
+
+
+
+        // stage ('Deploy Build in Staging Area'){
+        //     steps{
+
+        //         build job : 'Deploy-StagingArea-Piple'
+
+        //     }
+        // }
 
         stage ('Deploy to Production'){
             steps{
                 timeout (time: 5, unit:'DAYS'){
                     input message: 'Approve PRODUCTION Deployment?'
                 }
-                
+
                 build job : 'Deploy-Production-Pipeline'
             }
 
